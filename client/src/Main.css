@@ -1,0 +1,11 @@
+.ui.cards.cards-width .card {
+  width: 190px;
+}
+
+.custom-overflow-hidden {
+  overflow: hidden;
+}
+
+.custom-overflow-scroll {
+  overflow: auto;
+}

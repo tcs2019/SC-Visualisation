@@ -1,0 +1,10 @@
+{
+  "ETH_ContractName": "testContract.sol",
+  "ETH_ContractFolder": "contracts/",
+  "ETH_JSON_Compiled_Folder": "./built_contracts/",
+  "ETH_Host": "http://127.0.0.1:8545",
+  "ETH_Account": "0x0c9B3bfb7Da2bd59Eb479B2EFA2F0c3181022450",
+  "ETH_Key": "00bb7e7be17b3e1d0cef6b922e5cdba59388ebbafa21c5786b18bfe31d65fe4b",
+  "ETH_JSON_Deployed_Folder": "./built_contracts/web",
+  "ETH_Function_Table": "funcTable.json"
+}

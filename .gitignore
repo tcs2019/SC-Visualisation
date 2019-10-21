@@ -1,0 +1,11 @@
+# gitignore contributors:
+*/.svn/
+.DS_Store
+.svn/
+*/node_modules/
+*/built_contracts/
+*/.deployed_contracts/
+*./vscode/
+*/dump.rdb
+devices/node_modules/
+/node_modules/
