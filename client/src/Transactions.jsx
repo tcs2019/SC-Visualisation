@@ -1,47 +1,83 @@
-/* eslint-disable react/jsx-one-expression-per-line */
-/* eslint-disable react/prop-types */
-/* eslint-disable react/destructuring-assignment */
 import React from 'react';
 
-const Transactions = props => {
-  const { contract } = props;
-  console.log(contract);
-  const variableList = contract.state.map(function(variable, index) {
-    return (
-      <li key={index}>
-        {variable.name} : {variable.value}
-      </li>
-    );
-  });
+class Transactions extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      address: props.contract.address,
+      abi: props.contract.abi,
+      state: props.contract.state,
+      transactions: props.contract.transactions,
+      blockHash: '',
+      blockNumber: 0,
+      from: '',
+      transactionIndex: '',
+      nonce: 0,
+      gas: 0,
+      input: 'This need to be decoded',
+    };
+    this.handleClick = this.handleClick.bind(this);
+  }
 
-  const transactionList = contract.transactions.map(function(transaction, index) {
-    return (
-      <div className="card">
-        <div className="content">
-          <div className="header">Transaction</div>
-          <div className="meta custom-overflow-hidden">{transaction.hash}</div>
-          <div className="description">
-            <p className="custom-overflow-hidden">Block #: {transaction.blockNumber}</p>
-            <p>Gas: {transaction.gas}</p>
-            <p>Gas Price: {transaction.gasPrice}</p>
+  handleClick = (transaction) => {
+    // alert(transaction);
+    this.setState({
+      blockHash: transaction.blockHash,
+      blockNumber: transaction.blockNumber,
+      from: transaction.from,
+      transactionIndex: transaction.transactionIndex,
+      nonce: transaction.nonce,
+      gas: transaction.gas,
+      input: transaction.input,
+    })
+  };
+
+
+  render() {
+    const variableList = this.state.state.map(function(variable, index) {
+      return (
+        <li key={index}>
+          {variable.name} : {variable.value}
+        </li>
+      );
+    });
+
+    const transactionList = this.state.transactions.map((transaction, index)  => {
+      return (
+        <div className="card" onClick={() => this.handleClick(transaction)}>
+          <div className="content">
+            <div className="header">Transaction Icon</div>
+            <div className="meta custom-overflow-hidden">{transaction.hash}</div>
+            <div className="description">
+              <p className="custom-overflow-hidden">Block #: {transaction.blockNumber}</p>
+              <p>Gas: {transaction.gas}</p>
+              <p>Gas Price: {transaction.gasPrice}</p>
+            </div>
           </div>
         </div>
-      </div>
-    );
-  });
+      );
+    });
 
-  return (
-    <div>
+    return (
+      <div>
       <div className="ui center aligned grid">
         <div className="column">
-          <h1 className="ui header">Contract Address: {contract.address} </h1>
+          <h1 className="ui header">Contract Address: {this.state.address} </h1>
         </div>
       </div>
-      <div className="cards-width ui cards custom-overflow-scroll">{transactionList}</div>
+      <div className="cards-width ui cards custom-overflow-scroll" onClick={this.onClickHandler}>{transactionList}</div>
       <div className="ui two column very relaxed grid">
         <div className="column">
           <div>Transaction Info</div>
-          {/* <ul>{variableList}</ul> */}
+          <ul>
+            <li>Block Hash: {this.state.blockHash}</li>
+            <li>Block Number: {this.state.blockNumber}</li>
+            <li>From: {this.state.from}</li>
+            <li>Transaction Index: {this.state.transactionIndex}</li>
+            <li>Input: {this.state.input}</li>
+            <li>Nonce: {this.state.nonce}</li>
+            <li>Gas: {this.state.gas}</li>
+          </ul>
         </div>
         <div className="column">
           <div>Contract State Info</div>
@@ -49,7 +85,12 @@ const Transactions = props => {
         </div>
       </div>
     </div>
-  );
-};
+    );
+  }
+ 
+  
+
+  
+}
 
 export default Transactions;
