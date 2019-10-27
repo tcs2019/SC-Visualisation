@@ -8,13 +8,13 @@ class Transactions extends React.Component {
       abi: props.contract.abi,
       state: props.contract.state,
       transactions: props.contract.transactions,
-      blockHash: '',
-      blockNumber: 0,
-      from: '',
-      transactionIndex: '',
-      nonce: 0,
-      gas: 0,
-      input: 'This need to be decoded',
+      blockHash: props.contract.transactions[0].blockHash,
+      blockNumber: props.contract.transactions[0].blockNumber,
+      from: props.contract.transactions[0].from,
+      transactionIndex: props.contract.transactions[0].transactionIndex,
+      nonce: props.contract.transactions[0].nonce,
+      gas: props.contract.transactions[0].gas,
+      input: props.contract.transactions[0].input,
     };
     this.handleClick = this.handleClick.bind(this);
   }

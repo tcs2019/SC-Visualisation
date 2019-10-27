@@ -37,12 +37,12 @@ router.get('/transaction', async function(req, res, next) {
   const latest = await web3JS.getLatestTransactions(address, latestBlock);
   if (transactions.length < 1) {
     for (let i = 0; i < latest.length; i++) {
-      transactions.push(latest[i]);
+      transactions.unshift(latest[i]);
     }
   } else {
     for (let i = 0; i < latest.length; i++) {
       if (latest[i].blockNumber > latestBlock) {
-        transactions.push(latest[i]);
+        transactions.unshift(latest[i]);
       }
     }
   }

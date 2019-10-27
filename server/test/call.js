@@ -9,13 +9,13 @@ const web3Connection = new Web3(new Web3.providers.HttpProvider(config.ETH_Host)
 
 const callContract = new web3Connection.eth.Contract(contractABI, contractAddress);
 
-callContract.methods.addElementToArray(200).send({
+callContract.methods.addElementToArray(400).send({
   from: config.ETH_Account,
   gasPrice: 0,
   gas: web3Connection.utils.toHex(6000000),
 });
 
-callContract.methods.changeString('This string is changed again').send({
+callContract.methods.changeString('This string is changed again in next block').send({
   from: config.ETH_Account,
   gasPrice: 0,
   gas: web3Connection.utils.toHex(6000000),

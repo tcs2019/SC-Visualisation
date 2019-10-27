@@ -40,6 +40,7 @@ const Web3JS = {
 
   async getLatestTransactions(address, oldLatestBlock) {
     const web3Connection = new Web3(new Web3.providers.HttpProvider(config.ETH_Host));
+    const functionsList = fileIO.readFunctionSignature();
     const toContract = [];
     const latestBlock = await web3Connection.eth.getBlockNumber();
 
@@ -79,13 +80,26 @@ const Web3JS = {
       }
     }
 
-    // change this to get some block from old to latest
-
     // REF: https://ethereum.stackexchange.com/questions/34555/how-to-get-value-of-input-parameters-from-transaction-history?rq=1
+    for (let i = 0; i < toContract.length; i++) {
+      let inputFunc;
 
-    // for (let i = 0; i < toContract.length; i++) {
-    // console.log(web3Connection.eth.abi.decodeParameters(['string', 'string'], input));
-    // }
+      for (let j = 0; j < functionsList.length; j++) {
+        if (toContract[i].input.substring(0, 10) === functionsList[j].encodeSignature) {
+          inputFunc = `${functionsList[j].name}(`;
+          const temp = await web3Connection.eth.abi.decodeParameters(
+            functionsList[j].inputs,
+            toContract[i].input.substring(11)
+          );
+          // eslint-disable-next-line no-underscore-dangle
+          for (let k = 0; k < temp.__length__; k++) {
+            inputFunc += temp[k.toString()];
+          }
+          inputFunc += ')';
+        }
+      }
+      toContract[i].input = inputFunc;
+    }
 
     return toContract;
   },
