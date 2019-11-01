@@ -1,4 +1,5 @@
 import React from 'react';
+import { Form, Grid, Image, Transition } from 'semantic-ui-react'
 
 class Transactions extends React.Component {
   constructor(props) {
@@ -20,7 +21,6 @@ class Transactions extends React.Component {
   }
 
   handleClick = (transaction) => {
-    // alert(transaction);
     this.setState({
       blockHash: transaction.blockHash,
       blockNumber: transaction.blockNumber,
@@ -36,9 +36,10 @@ class Transactions extends React.Component {
   render() {
     const variableList = this.state.state.map(function(variable, index) {
       return (
-        <li key={index}>
-          {variable.name} : {variable.value}
-        </li>
+        <div class="item" key={index}>
+          <i class="ethereum icon"></i>
+          <div class="content"> {variable.name} : {variable.value} </div>
+        </div>
       );
     });
 
@@ -46,12 +47,12 @@ class Transactions extends React.Component {
       return (
         <div className="card" onClick={() => this.handleClick(transaction)}>
           <div className="content">
-            <div className="header">Transaction Icon</div>
+            <div className="header">
+              <Image centered size='small' src='/ethereum.png' />
+            </div>
             <div className="meta custom-overflow-hidden">{transaction.hash}</div>
             <div className="description">
               <p className="custom-overflow-hidden">Block #: {transaction.blockNumber}</p>
-              <p>Gas: {transaction.gas}</p>
-              <p>Gas Price: {transaction.gasPrice}</p>
             </div>
           </div>
         </div>
@@ -59,32 +60,58 @@ class Transactions extends React.Component {
     });
 
     return (
-      <div>
-      <div className="ui center aligned grid">
-        <div className="column">
-          <h1 className="ui header">Contract Address: {this.state.address} </h1>
+      <div className="custom-middle">
+        <div className="ui center aligned grid custom-middle">
+          <div className="ui center aligned fifteen wide column">
+            {/* <h1 className="ui header">Contract Name</h1> */}
+            <h1 className="ui header">Contract Address: {this.state.address} </h1>
+          </div>
+          <div className="ui center aligned fifteen wide column">
+            <div className="cards-width ui cards custom-overflow-scroll" onClick={this.onClickHandler}>{transactionList}</div>
+            <div className="ui clearing segment left aligned">
+              <div className="ui two column very relaxed grid">
+                <div className="column">
+                  <div className="ui header">Transaction Info</div>
+                  <div class="ui list">
+                    <div class="item">
+                      <i class="hashtag icon"></i>
+                      <div class="content"> Block Hash: {this.state.blockHash} </div>
+                    </div>
+                    <div class="item">
+                      <i class="cube icon"></i>
+                      <div class="content"> Block Number: {this.state.blockNumber} </div>
+                    </div>
+                    <div class="item">
+                      <i class="user icon"></i>
+                      <div class="content"> From: {this.state.from} </div>
+                    </div>
+                    <div class="item">
+                      <i class="file alternate icon"></i>
+                      <div class="content"> Transaction Index: {this.state.transactionIndex} </div>
+                    </div>
+                    <div class="item">
+                      <i class="sign-in icon"></i>
+                      <div class="content"> Input: {this.state.input} </div>
+                    </div>
+                    <div class="item">
+                      <i class="code icon"></i>
+                      <div class="content"> Nonce: {this.state.nonce}</div>
+                    </div>
+                    <div class="item">
+                      <i class="hotjar icon"></i>
+                      <div class="content"> Gas: {this.state.gas}</div>
+                    </div>
+                  </div>
+                </div>
+                <div className="column">
+                  <div className="ui header">Contract State Info</div>
+                  <div class="ui list">{variableList}</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div className="cards-width ui cards custom-overflow-scroll" onClick={this.onClickHandler}>{transactionList}</div>
-      <div className="ui two column very relaxed grid">
-        <div className="column">
-          <div>Transaction Info</div>
-          <ul>
-            <li>Block Hash: {this.state.blockHash}</li>
-            <li>Block Number: {this.state.blockNumber}</li>
-            <li>From: {this.state.from}</li>
-            <li>Transaction Index: {this.state.transactionIndex}</li>
-            <li>Input: {this.state.input}</li>
-            <li>Nonce: {this.state.nonce}</li>
-            <li>Gas: {this.state.gas}</li>
-          </ul>
-        </div>
-        <div className="column">
-          <div>Contract State Info</div>
-          <ul>{variableList}</ul>
-        </div>
-      </div>
-    </div>
     );
   }
  

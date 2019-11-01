@@ -48,7 +48,7 @@ router.get('/transaction', async function(req, res, next) {
   }
 
   if (transactions.length > 0) {
-    latestBlock = transactions[transactions.length - 1].blockNumber;
+    latestBlock = transactions[0].blockNumber;
     res.json(transactions);
   } else {
     res.sendStatus(404);
