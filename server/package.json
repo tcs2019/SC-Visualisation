@@ -20,7 +20,7 @@
     "web3": "^1.2.1"
   },
   "devDependencies": {
-    "acorn": "^7.0.0",
+    "acorn": "^7.1.1",
     "eslint": "^6.3.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.1.0",
