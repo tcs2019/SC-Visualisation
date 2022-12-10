@@ -10,7 +10,7 @@
     "cors": "^2.8.5",
     "debug": "~2.6.9",
     "ethereumjs-tx": "^2.1.1",
-    "express": "~4.16.1",
+    "express": "~4.17.3",
     "express-form-data": "^2.0.10",
     "http-errors": "~1.6.3",
     "md5-file": "^4.0.0",
